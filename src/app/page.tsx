@@ -3,6 +3,7 @@ import Navbar from '@/components/shared/Navbar';
 
 import { Heading, Text, Flex, Button, Logo, Background, LetterFx } from '@/once-ui/components';
 import { getUser } from '@propelauth/nextjs/server/app-router';
+import { getPosts } from '@/actions/postAction';
 
 export default async function Home() {
 	const user = await getUser();
@@ -10,6 +11,12 @@ export default async function Home() {
 	const loggedIn = user != null;
     const email = user?.email ?? '';
 	const userId = user?.userId ?? '';
+	
+	const {data, errMsg} = await getPosts();
+	if(errMsg) 
+		return <h1>{errMsg}</h1>
+
+
 	
 	return (
 		<>
@@ -77,6 +84,11 @@ export default async function Home() {
 						prefixIcon="github" size="s" variant="tertiary">
 						GitHub
 					</Button>
+					{/* {
+						data.map((item: { _id: string; msg: string }) => (
+							<h1 key={item._id}>{item.msg}</h1>
+						))
+					} */}
 				</Flex>
 			</Flex>
 		</>
