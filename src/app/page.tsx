@@ -9,10 +9,11 @@ export default async function Home() {
 
 	const loggedIn = user != null;
     const email = user?.email ?? '';
+	const userId = user?.userId ?? '';
 	
 	return (
 		<>
-			<Navbar loggedIn={loggedIn} email={email}/>
+			<Navbar loggedIn={loggedIn} email={email} userId={userId} />
 			<Flex
 				fillWidth paddingTop="l" paddingX="l"
 				direction="column" alignItems="center" flex={1}>

@@ -3,14 +3,19 @@
 import { useRedirectFunctions } from "@propelauth/nextjs/client";
 import { Flex, UserMenu, SmartLink } from '@/once-ui/components';
 import ProfilePicture from '../../assets/default.jpg';
+import {useLogoutFunction} from "@propelauth/nextjs/client";
+import { useRouter } from 'next/navigation';
 
 interface NavbarProps {
   email: string;
+  userId: string;
   loggedIn: boolean;
 }
 
-const Navbar = ({ loggedIn, email }: NavbarProps) => {
+const Navbar = ({ loggedIn, email, userId }: NavbarProps) => {
   const { redirectToSignupPage, redirectToLoginPage } = useRedirectFunctions();
+  const logoutFn = useLogoutFunction();
+  const router = useRouter();
 
   return (
     <Flex
@@ -48,9 +53,19 @@ const Navbar = ({ loggedIn, email }: NavbarProps) => {
               src: ProfilePicture.src,
             }}
             dropdownOptions={[
-              { label: 'Profile', value: 'profile' },
-              { label: 'Log out', value: 'logout' }
+              { label: 'Profile', value: 'profile',  },
+              { label: 'Log out', value: 'logout' },
             ]}
+            dropdownProps={{
+              onOptionSelect: (option) => {
+                console.log('Selected option:', option);
+                if (option.value === 'profile') {
+                  router.push(`/profile/${userId}`);
+                } else if (option.value === 'logout') {
+                  logoutFn();
+                }
+              }
+            }}
           />
         ) : (
           <>
