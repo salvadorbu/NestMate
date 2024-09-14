@@ -69,7 +69,7 @@ export default function Home() {
 						© 2024 NestMates, <Link href="https://github.com/salvadorbu/NestMate">MIT License</Link>
 					</Text>
 					<Button
-						href="https://github.com/once-ui-system/nextjs-starter"
+						href="https://github.com/salvadorbu/NestMate"
 						prefixIcon="github" size="s" variant="tertiary">
 						GitHub
 					</Button>
