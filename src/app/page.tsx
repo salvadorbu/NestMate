@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import Navbar from '@/components/shared/Navbar'; // Import the Navbar component
+import Navbar from '@/components/shared/Navbar';
 
 import { Heading, Text, Flex, Button, Icon, InlineCode, Logo, Background, LetterFx } from '@/once-ui/components';
 import Link from 'next/link';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 export default function Home() {
 	return (
 		<>
-			<Navbar isLoggedIn={false} userName="John Doe" userRole="Admin" avatarSrc="/images/john-doe-avatar.png" /> {/* Add the Navbar component */}
+			<Navbar/>
 			<Flex
 				fillWidth paddingTop="l" paddingX="l"
 				direction="column" alignItems="center" flex={1}>
@@ -36,21 +36,15 @@ export default function Home() {
 								position="relative"
 								flex={4} gap="24" marginBottom="104"
 								direction="column">
-								<InlineCode
-									className="shadow-m"
-									style={{
-										width: 'fit-content',
-										padding: 'var(--static-space-8) var(--static-space-16)',
-										backdropFilter: 'blur(var(--static-space-1))'}}>
-									Start by editing <span className="brand-on-background-medium">app/page.tsx</span>
-								</InlineCode>
+								
 								<Heading
 									wrap="balance"
 									variant="display-strong-s">
 									<span className="font-code">
 										<LetterFx
-											trigger="instant">
-											Helping designers code and developers design
+										trigger="instant">
+										Find your ideal roommate
+										and perfect apartment
 										</LetterFx>
 									</span>
 								</Heading>
@@ -68,24 +62,17 @@ export default function Home() {
 					as="footer"
 					position="relative"
 					fillWidth paddingX="l" paddingY="m"
-					justifyContent="space-between">
+					justifyContent="space-between"
+					alignItems="center">
 					<Text
 						variant="body-default-s" onBackground="neutral-weak">
-						© 2024 Once UI, <Link href="https://github.com/once-ui-system/nextjs-starter?tab=MIT-1-ov-file">MIT License</Link>
+						© 2024 NestMates, <Link href="https://github.com/salvadorbu/NestMate">MIT License</Link>
 					</Text>
-					<Flex
-						gap="12">
-						<Button
-							href="https://github.com/once-ui-system/nextjs-starter"
-							prefixIcon="github" size="s" variant="tertiary">
-							GitHub
-						</Button>
-						<Button
-							href="https://discord.com/invite/5EyAQ4eNdS"
-							prefixIcon="discord" size="s" variant="tertiary">
-							Discord
-						</Button>
-					</Flex>
+					<Button
+						href="https://github.com/once-ui-system/nextjs-starter"
+						prefixIcon="github" size="s" variant="tertiary">
+						GitHub
+					</Button>
 				</Flex>
 			</Flex>
 		</>
