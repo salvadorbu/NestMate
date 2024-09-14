@@ -1,13 +1,21 @@
-"use client"
+"use client";
 
-import {useRedirectFunctions} from "@propelauth/nextjs/client";
-
-import React from 'react';
+import { useRedirectFunctions } from "@propelauth/nextjs/client";
 import { Flex, UserMenu, SmartLink } from '@/once-ui/components';
+import ProfilePicture from '../../assets/default.jpg';
+import {useLogoutFunction} from "@propelauth/nextjs/client";
+import { useRouter } from 'next/navigation';
 
-const Navbar = () => {
-  const user = null;
-  const {redirectToSignupPage, redirectToLoginPage} = useRedirectFunctions();
+interface NavbarProps {
+  email: string;
+  userId: string;
+  loggedIn: boolean;
+}
+
+const Navbar = ({ loggedIn, email, userId }: NavbarProps) => {
+  const { redirectToSignupPage, redirectToLoginPage } = useRedirectFunctions();
+  const logoutFn = useLogoutFunction();
+  const router = useRouter();
 
   return (
     <Flex
@@ -32,9 +40,9 @@ const Navbar = () => {
       <h1 style={{ fontSize: '24px', color: '#fff', textAlign: 'center', flex: 2 }}>NestMates</h1>
 
       <Flex gap="16" alignItems="center" justifyContent="flex-end" style={{ flex: 1 }}>
-        {user ? (
+        {loggedIn ? (
           <UserMenu
-            name={'User'}
+            name={email}
             subline={'Member'}
             tagProps={{
               label: 'Pro',
@@ -42,14 +50,22 @@ const Navbar = () => {
             }}
             avatarProps={{
               empty: false,
-              src: '/images/default-avatar.png'
+              src: ProfilePicture.src,
             }}
             dropdownOptions={[
-              { label: 'Profile', value: 'profile' },
-              { label: 'Settings', value: 'settings' },
-              { dividerAfter: true, label: 'Ad manager', value: 'admanager' },
-              { label: 'Log out', value: 'logout' }
+              { label: 'Profile', value: 'profile',  },
+              { label: 'Log out', value: 'logout' },
             ]}
+            dropdownProps={{
+              onOptionSelect: (option) => {
+                console.log('Selected option:', option);
+                if (option.value === 'profile') {
+                  router.push(`/profile/${userId}`);
+                } else if (option.value === 'logout') {
+                  logoutFn();
+                }
+              }
+            }}
           />
         ) : (
           <>

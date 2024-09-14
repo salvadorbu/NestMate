@@ -1,15 +1,19 @@
-"use client";
-
 import React from 'react';
 import Navbar from '@/components/shared/Navbar';
 
-import { Heading, Text, Flex, Button, Icon, InlineCode, Logo, Background, LetterFx } from '@/once-ui/components';
-import Link from 'next/link';
+import { Heading, Text, Flex, Button, Logo, Background, LetterFx } from '@/once-ui/components';
+import { getUser } from '@propelauth/nextjs/server/app-router';
 
-export default function Home() {
+export default async function Home() {
+	const user = await getUser();
+
+	const loggedIn = user != null;
+    const email = user?.email ?? '';
+	const userId = user?.userId ?? '';
+	
 	return (
 		<>
-			<Navbar/>
+			<Navbar loggedIn={loggedIn} email={email} userId={userId} />
 			<Flex
 				fillWidth paddingTop="l" paddingX="l"
 				direction="column" alignItems="center" flex={1}>
