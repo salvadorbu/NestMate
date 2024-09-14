@@ -66,7 +66,7 @@ export default function Home() {
 					alignItems="center">
 					<Text
 						variant="body-default-s" onBackground="neutral-weak">
-						© 2024 NestMates, <Link href="https://github.com/salvadorbu/NestMate">MIT License</Link>
+						© 2024 NestMates
 					</Text>
 					<Button
 						href="https://github.com/salvadorbu/NestMate"
