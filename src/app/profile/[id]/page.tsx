@@ -1,25 +1,31 @@
 import { notFound } from 'next/navigation';
-
+import { getUser } from '@propelauth/nextjs/server/app-router';
+import Navbar from '@/components/shared/Navbar';
+import { Background
+    
+ } from '@/once-ui/components';
 interface PageProps {
   params: {
     id: string;
   };
 }
 
-export default function UserProfile({ params }: PageProps) {
+export default async function UserProfile({ params }: PageProps) {
   const { id } = params;
 
-  // Fetch user data here
-  // For example:
-  // const userData = await fetchUserData(userId);
-  
-  // If user not found, you can render a 404 page
-  // if (!userData) notFound();
+  const user = await getUser();
+
+  if (!user) notFound();
+
+  const loggedIn = user != null;
+  const email = user?.email ?? '';
+  const userId = user?.userId ?? '';
+
 
   return (
-    <div>
-      <h1>User Profile</h1>
-      <p>User ID: {id}</p>
-    </div>
+    <>
+        <Navbar loggedIn={loggedIn} email={email} userId={userId} />
+        <Background dots={false}/>
+    </>
   );
 }

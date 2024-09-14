@@ -53,6 +53,7 @@ const Navbar = ({ loggedIn, email, userId }: NavbarProps) => {
               src: ProfilePicture.src,
             }}
             dropdownOptions={[
+              { label: 'Home', value: 'home' },
               { label: 'Profile', value: 'profile',  },
               { label: 'Log out', value: 'logout' },
             ]}
@@ -63,17 +64,19 @@ const Navbar = ({ loggedIn, email, userId }: NavbarProps) => {
                   router.push(`/profile/${userId}`);
                 } else if (option.value === 'logout') {
                   logoutFn();
+                } else if (option.value == 'home') {
+                  router.push('/');
                 }
               }
             }}
           />
         ) : (
           <>
-            <SmartLink href="/" onClick={() => redirectToLoginPage()} iconSize="xs">
+            <SmartLink href="/" onClick={() => redirectToSignupPage()} iconSize="xs">
               Sign Up
             </SmartLink>
             <span style={{ color: '#fff' }}>/</span>
-            <SmartLink href="/" onClick={() => redirectToSignupPage()} iconSize="xs">
+            <SmartLink href="/" onClick={() => redirectToLoginPage()} iconSize="xs">
               Sign In
             </SmartLink>
           </>

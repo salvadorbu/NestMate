@@ -11,12 +11,10 @@ export default async function Home() {
 	const loggedIn = user != null;
     const email = user?.email ?? '';
 	const userId = user?.userId ?? '';
-	
+
 	const {data, errMsg} = await getPosts();
 	if(errMsg) 
 		return <h1>{errMsg}</h1>
-
-
 	
 	return (
 		<>
@@ -60,10 +58,10 @@ export default async function Home() {
 									</span>
 								</Heading>
 								<Button
-									href="https://once-ui.com/docs"
+									href="/about"
 									suffixIcon="chevronRight"
 									variant="secondary">
-									Read docs
+									Read more
 								</Button>
 							</Flex>
 						</Flex>
@@ -84,11 +82,6 @@ export default async function Home() {
 						prefixIcon="github" size="s" variant="tertiary">
 						GitHub
 					</Button>
-					{/* {
-						data.map((item: { _id: string; msg: string }) => (
-							<h1 key={item._id}>{item.msg}</h1>
-						))
-					} */}
 				</Flex>
 			</Flex>
 		</>
