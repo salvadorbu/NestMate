@@ -19,6 +19,14 @@ const Navbar: React.FC<NavbarProps> = ({ isLoggedIn, userName, userRole, avatarS
       marginRight="8"
       justifyContent="space-between"
       alignItems="center"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        background: 'transparent'
+      }}
     >
       <div style={{ flex: 1 }} />
 
