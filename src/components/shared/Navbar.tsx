@@ -1,15 +1,14 @@
-"use client";
+"use client"
+
+import {useRedirectFunctions} from "@propelauth/nextjs/client";
+
 import React from 'react';
 import { Flex, UserMenu, SmartLink } from '@/once-ui/components';
 
-interface NavbarProps {
-  isLoggedIn: boolean;
-  userName?: string;
-  userRole?: string;
-  avatarSrc?: string;
-}
+const Navbar = () => {
+  const user = null;
+  const {redirectToSignupPage, redirectToLoginPage} = useRedirectFunctions();
 
-const Navbar: React.FC<NavbarProps> = ({ isLoggedIn, userName, userRole, avatarSrc }) => {
   return (
     <Flex
       gap="24"
@@ -33,17 +32,17 @@ const Navbar: React.FC<NavbarProps> = ({ isLoggedIn, userName, userRole, avatarS
       <h1 style={{ fontSize: '24px', color: '#fff', textAlign: 'center', flex: 2 }}>NestMates</h1>
 
       <Flex gap="16" alignItems="center" justifyContent="flex-end" style={{ flex: 1 }}>
-        {isLoggedIn ? (
+        {user ? (
           <UserMenu
-            name={userName || 'User'}
-            subline={userRole || 'Member'}
+            name={'User'}
+            subline={'Member'}
             tagProps={{
               label: 'Pro',
               variant: 'brand'
             }}
             avatarProps={{
               empty: false,
-              src: avatarSrc || '/images/default-avatar.png'
+              src: '/images/default-avatar.png'
             }}
             dropdownOptions={[
               { label: 'Profile', value: 'profile' },
@@ -54,11 +53,11 @@ const Navbar: React.FC<NavbarProps> = ({ isLoggedIn, userName, userRole, avatarS
           />
         ) : (
           <>
-            <SmartLink href="/sign-up" iconSize="xs">
+            <SmartLink href="/" onClick={() => redirectToLoginPage()} iconSize="xs">
               Sign Up
             </SmartLink>
             <span style={{ color: '#fff' }}>/</span>
-            <SmartLink href="/sign-in" iconSize="xs">
+            <SmartLink href="/" onClick={() => redirectToSignupPage()} iconSize="xs">
               Sign In
             </SmartLink>
           </>

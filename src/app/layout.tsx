@@ -3,11 +3,12 @@ import "@/once-ui/tokens/index.scss";
 
 import { Flex } from '@/once-ui/components'
 import classNames from 'classnames';
-import { Inter } from 'next/font/google'
 import { Source_Code_Pro } from 'next/font/google';
 
 import { Raleway } from 'next/font/google';
 import { Sora } from 'next/font/google';
+
+import {AuthProvider} from "@propelauth/nextjs/client";
 
 const primary = Raleway({
     variable: '--font-primary',
@@ -21,20 +22,11 @@ const secondary = Sora({
     display: 'swap'
 });
 
-
-
 type FontConfig = {
     variable: string;
 };
 
-/*
-	Replace with code for secondary and tertiary fonts
-	from https://once-ui.com/customize
-*/
-
 const tertiary: FontConfig | undefined = undefined;
-/*
-*/
 
 const code = Source_Code_Pro({
 	variable: '--font-code',
@@ -48,6 +40,7 @@ export default function RootLayout({
   	children: React.ReactNode;
 }>) {
 	return (
+		<AuthProvider authUrl={process.env.NEXT_PUBLIC_AUTH_URL!}>
 		<Flex
 			as="html" lang="en"
 			fillHeight background="page"
@@ -75,5 +68,6 @@ export default function RootLayout({
 				</Flex>
 			</Flex>
 		</Flex>
+		</AuthProvider>
 	);
 }
