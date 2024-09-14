@@ -3,6 +3,24 @@
     box-sizing: border-box;
 }
 
+:root {
+    --scheme-accent-100: #000b1c;
+    --scheme-accent-200: #001728;
+    --scheme-accent-300: #00485b;
+    --scheme-accent-400: #1a6175;
+    --scheme-accent-500: #3c7f93;
+    --scheme-accent-600: #5ea0b5;
+    --scheme-accent-600-10: rgba(94,160,181,0.1);
+    --scheme-accent-600-30: rgba(94,160,181,0.3);
+    --scheme-accent-600-50: rgba(94,160,181,0.5);
+    --scheme-accent-700: #7abdd2;
+    --scheme-accent-800: #9ce0f7;
+    --scheme-accent-900: #a9eeff;
+    --scheme-accent-1000: #b6fbff;
+    --scheme-accent-1100: #c3ffff;
+    --scheme-accent-1200: #c7ffff;
+}
+
 ul {
     margin: 0;
     padding: 0 0 0 var(--static-space-12);
