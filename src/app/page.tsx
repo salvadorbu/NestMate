@@ -12,6 +12,7 @@ export default async function Home() {
     const email = user?.email ?? '';
 	const userId = user?.userId ?? '';
 
+	//temp
 	const {data, errMsg} = await getPosts();
 	if(errMsg) 
 		return <h1>{errMsg}</h1>
