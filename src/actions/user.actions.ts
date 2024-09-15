@@ -50,7 +50,12 @@ export async function createUser(params: {
         });
 
         const savedUser = await newUser.save();
-        return savedUser;
+
+        const userObject = savedUser.toObject();
+
+        const { _id, __v, ...cleanedUser } = userObject;
+
+        return cleanedUser;
     } catch (error) {
         console.log(error);
         throw error;
