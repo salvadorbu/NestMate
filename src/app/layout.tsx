@@ -9,6 +9,7 @@ import { Raleway } from 'next/font/google';
 import { Sora } from 'next/font/google';
 
 import {AuthProvider} from "@propelauth/nextjs/client";
+import type { Metadata } from 'next';
 
 const primary = Raleway({
     variable: '--font-primary',
@@ -33,6 +34,14 @@ const code = Source_Code_Pro({
 	subsets: ['latin'],
 	display: 'swap',
 });
+
+export const metadata: Metadata = {
+  title: 'NestMate',
+  description: 'Your next roommate is just a click away',
+  icons: {
+    icon: '/images/logo.ico',
+  },
+}
 
 export default function RootLayout({
   	children,
