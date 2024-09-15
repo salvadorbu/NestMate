@@ -14,7 +14,8 @@ import {
     AvatarGroup,
     Grid,
 } from '@/once-ui/components';
-import { getUser } from '@propelauth/nextjs/server/app-router';
+import {getUserOrRedirect} from "@propelauth/nextjs/server/app-router";
+
 
 // Add this new component
 const PropertyCard = () => (
@@ -56,8 +57,8 @@ const PropertyCard = () => (
   </Flex>
 );
 
-export default async function About() {
-    const user = await getUser();
+export default async function PropertySearch() {
+    const user = await getUserOrRedirect();
 
     const loggedIn = user != null;
     const email = user?.email ?? '';

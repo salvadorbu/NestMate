@@ -1,9 +1,9 @@
 import React from 'react';
 import Navbar from '@/components/shared/Navbar';
-
-import { Heading, Text, Flex, Button, Logo, Background, LetterFx } from '@/once-ui/components';
+import Image from 'next/image';
+import { Heading, Text, Flex, Button, Background, LetterFx } from '@/once-ui/components';
 import { getUser } from '@propelauth/nextjs/server/app-router';
-import { getPosts } from '@/actions/postAction';
+import logoImg from '../assets/logo.png';
 
 export default async function Home() {
 	const user = await getUser();
@@ -11,11 +11,6 @@ export default async function Home() {
 	const loggedIn = user != null;
     const email = user?.email ?? '';
 	const userId = user?.userId ?? '';
-
-	//temp
-	const {data, errMsg} = await getPosts();
-	if(errMsg) 
-		return <h1>{errMsg}</h1>
 	
 	return (
 		<>
@@ -40,7 +35,8 @@ export default async function Home() {
 							<Flex
 								position="relative"
 								flex={2} paddingTop="56" paddingX="xl">
-								<Logo size="xl" icon={false} style={{zIndex: '1'}}/>
+								<Image src={logoImg} alt="Logo" width={350} height={110} style={{zIndex: '1'}}/>
+
 							</Flex>
 							<Flex
 								position="relative"
