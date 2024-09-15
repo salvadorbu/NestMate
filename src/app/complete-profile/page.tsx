@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Flex, Input, Button, Dropdown } from '@/once-ui/components';
+import { Flex, Input, Button, Dropdown, Background } from '@/once-ui/components';
 
 const CompleteProfile = () => {
   const [formData, setFormData] = useState({
@@ -26,6 +26,10 @@ const CompleteProfile = () => {
     setFormData({ ...formData, [field]: option.value });
   };
 
+  const handleSmokerChange = (value: boolean) => {
+    setFormData({ ...formData, smoker: value });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Here you would typically send this data to your backend
@@ -33,85 +37,134 @@ const CompleteProfile = () => {
     router.push('/find-roommate');
   };
 
+  const inputStyle = {
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    padding: '8px',
+    width: '100%',
+  };
+
+  const labelStyle = {
+    marginBottom: '4px',
+    fontSize: '14px',
+  };
+
+  const dropdownStyle = {
+    ...inputStyle,
+    appearance: 'none',
+    backgroundImage: 'url("data:image/svg+xml,...")', // Add a dropdown arrow SVG
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'right 8px center',
+    paddingRight: '24px',
+  };
+
   return (
-    <Flex direction="column" alignItems="center" padding="xl">
-      <form onSubmit={handleSubmit}>
-        <Flex direction="column" gap="m">
-          <Input
-            id="name"
-            label="Name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          <Input
-            id="age"
-            label="Age"
-            type="number"
-            value={formData.age}
-            onChange={handleChange}
-          />
-          <Input
-            id="bio"
-            label="Bio"
-            value={formData.bio}
-            onChange={handleChange}
-          />
-          <Input
-            id="email"
-            label="Email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <Input
-            id="rentMin"
-            label="Minimum Rent"
-            type="number"
-            value={formData.rentMin}
-            onChange={handleChange}
-          />
-          <Input
-            id="rentMax"
-            label="Maximum Rent"
-            type="number"
-            value={formData.rentMax}
-            onChange={handleChange}
-          />
-          <Flex alignItems="center" gap="m">
-            <label htmlFor="smoker">Smoker:</label>
-            <input
-              id="smoker"
-              type="checkbox"
-              checked={formData.smoker}
-              onChange={(e) => setFormData({ ...formData, smoker: e.target.checked })}
+    <Flex direction="column" alignItems="center" flex={1}>
+      <Background dots={false} />
+      <Flex
+        position="relative"
+        direction="column"
+        alignItems="center"
+        padding="xl"
+        maxWidth={68}
+        fillWidth
+        fillHeight
+      >
+        <form onSubmit={handleSubmit}>
+          <Flex direction="column" gap="m">
+            <Input
+              id="name"
+              label="Name"
+              value={formData.name}
+              onChange={handleChange}
+              style={inputStyle}
+            />
+            <Input
+              id="age"
+              label="Age"
+              type="number"
+              value={formData.age}
+              onChange={handleChange}
+              style={inputStyle}
+            />
+            <Input
+              id="bio"
+              label="Bio"
+              value={formData.bio}
+              onChange={handleChange}
+              style={inputStyle}
+            />
+            <Input
+              id="email"
+              label="Email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              style={inputStyle}
+            />
+            <Input
+              id="rentMin"
+              label="Minimum Rent"
+              onChange={handleChange}
+              style={inputStyle}
+            />
+            <Input
+              id="rentMax"
+              label="Maximum Rent"
+              onChange={handleChange}
+              style={inputStyle}
+            />
+            <Flex direction="column" gap="s">
+              <Flex alignItems="center" style={inputStyle}>
+                <span style={{ marginRight: 'auto' }}>Smoker</span>
+                <Flex>
+                  <Button
+                    onClick={() => handleSmokerChange(true)}
+                    variant={formData.smoker ? "primary" : "secondary"}
+                    size="s"
+                    label="Yes"
+                    style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+                  />
+                  <Button
+                    onClick={() => handleSmokerChange(false)}
+                    variant={!formData.smoker ? "primary" : "secondary"}
+                    size="s"
+                    label="No"
+                    style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+                  />
+                </Flex>
+              </Flex>
+            </Flex>
+            
+            <Dropdown
+              options={[
+                { label: 'Early Bird', value: 'Early Bird' },
+                { label: 'Shift Worker', value: 'Shift Worker' },
+                { label: 'Night Owl', value: 'Night Owl' },
+              ]}
+              selectedOption={formData.sleepType}
+              onOptionSelect={handleDropdownChange('sleepType')}
+              style={dropdownStyle as React.CSSProperties}
+            />
+            <Dropdown
+              options={[
+                { label: 'Spotless', value: 'Spotless' },
+                { label: 'Moderate', value: 'Moderate' },
+                { label: 'Relaxed', value: 'Relaxed' },
+              ]}
+              selectedOption={formData.cleanliness}
+              onOptionSelect={handleDropdownChange('cleanliness')}
+              style={dropdownStyle as React.CSSProperties}
+            />
+            <Button
+              onClick={handleSubmit}
+              variant="primary"
+              size="m"
+              label="Complete Profile"
             />
           </Flex>
-          <Dropdown
-            options={[
-              { label: 'Early Bird', value: 'Early Bird' },
-              { label: 'Shift Worker', value: 'Shift Worker' },
-              { label: 'Night Owl', value: 'Night Owl' },
-            ]}
-            selectedOption={formData.sleepType}
-            onOptionSelect={handleDropdownChange('sleepType')}
-          />
-          <Dropdown
-            options={[
-              { label: 'Spotless', value: 'Spotless' },
-              { label: 'Moderate', value: 'Moderate' },
-              { label: 'Relaxed', value: 'Relaxed' },
-            ]}
-            selectedOption={formData.cleanliness}
-            onOptionSelect={handleDropdownChange('cleanliness')}
-          />
-          <Button
-            onClick={handleSubmit}
-            variant="primary"
-            size="m"
-            label="Complete Profile"
-          />
-        </Flex>
-      </form>
+        </form>
+      </Flex>
     </Flex>
   );
 };

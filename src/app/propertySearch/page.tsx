@@ -16,8 +16,6 @@ import {
 } from '@/once-ui/components';
 import {getUserOrRedirect} from "@propelauth/nextjs/server/app-router";
 
-
-// Add this new component
 const PropertyCard = () => (
   <Flex
     direction="column"
