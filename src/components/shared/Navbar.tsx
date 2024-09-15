@@ -22,7 +22,7 @@ const Navbar = ({ loggedIn, email, userId, onboarded }: NavbarProps) => {
 
   useEffect(() => {
     if (!onboarded) {
-      router.push('/complete-profile');
+      router.push('/onboarding');
     }
   }, [onboarded, router]);
 
