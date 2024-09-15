@@ -19,7 +19,11 @@ export default async function Home() {
 	if (userId) {
 		userFromDB = await fetchUserFromDB({ userId });
 	}
-	
+
+	if (!userFromDB && loggedIn) {
+		onboarded = false;
+	}
+
 	return (
 		<>
 			<Navbar loggedIn={loggedIn} email={email} userId={userId} onboarded={onboarded} />
