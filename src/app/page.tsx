@@ -19,10 +19,6 @@ export default async function Home() {
 	if (userId) {
 		userFromDB = await fetchUserFromDB({ userId });
 	}
-
-	if (!userFromDB && loggedIn) {
-		onboarded = false;
-	}
 	
 	return (
 		<>

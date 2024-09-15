@@ -64,7 +64,7 @@ export default async function PropertySearch() {
 
     return (
         <>
-            <Navbar loggedIn={loggedIn} email={email} userId={userId} />
+            <Navbar loggedIn={loggedIn} email={email} userId={userId} onboarded={true} />
             <Flex
                 fillWidth
                 paddingTop="l"
