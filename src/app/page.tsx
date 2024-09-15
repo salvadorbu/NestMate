@@ -58,12 +58,20 @@ export default async function Home() {
 										</LetterFx>
 									</span>
 								</Heading>
-								<Button
-									href="/about"
-									suffixIcon="chevronRight"
-									variant="secondary">
-									Read more
-								</Button>
+								<Flex direction="row" gap="m">
+									<Button
+										href="/propertySearch"
+										suffixIcon="chevronRight"
+										variant="secondary">
+										Find your nest
+									</Button>
+									<Button
+										href="/about"
+										suffixIcon="chevronRight"
+										variant="secondary">
+										Read more
+									</Button>
+								</Flex>
 							</Flex>
 						</Flex>
 					</Flex>

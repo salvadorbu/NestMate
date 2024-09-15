@@ -36,7 +36,7 @@ const code = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
-  title: 'NestMate',
+  title: 'NestMates',
   description: 'Your next roommate is just a click away',
   icons: {
     icon: '/images/logo.ico',
