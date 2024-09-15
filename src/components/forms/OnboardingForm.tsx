@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Flex, Input, Button, Dropdown, Background } from '@/once-ui/components';
+import { Flex, Input, Button, Dropdown, Background, Switch } from '@/once-ui/components';
 import { createUser } from '@/actions/user.actions';
 
 interface OnboardingFormProps {
-    email: string;
-    userId: string;
+  email: string;
+  userId: string;
 }
 
 const OnboardingForm = ({ email, userId }: OnboardingFormProps) => {
@@ -23,6 +23,7 @@ const OnboardingForm = ({ email, userId }: OnboardingFormProps) => {
     cleanliness: 'Moderate',
   });
 
+  const [isAccessibleSearchEnabled, setIsAccessibleSearchEnabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -34,8 +35,8 @@ const OnboardingForm = ({ email, userId }: OnboardingFormProps) => {
     setFormData({ ...formData, [field]: option.value });
   };
 
-  const handleSmokerChange = (value: boolean) => {
-    setFormData({ ...formData, smoker: value });
+  const handleSmokerChange = (option: { value: string }) => {
+    setFormData({ ...formData, smoker: option.value === 'Smoker' });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -55,6 +56,7 @@ const OnboardingForm = ({ email, userId }: OnboardingFormProps) => {
         smoker: formData.smoker,
         sleepType: formData.sleepType,
         cleanliness: formData.cleanliness,
+        accessibleSearchEnabled: isAccessibleSearchEnabled, // Add this field to submission data if needed
       };
 
       await createUser(newUserParams);
@@ -141,27 +143,31 @@ const OnboardingForm = ({ email, userId }: OnboardingFormProps) => {
               onChange={handleChange}
               style={inputStyle}
             />
-            <Flex direction="column" gap="s">
-              <Flex alignItems="center" style={inputStyle}>
-                <span style={{ marginRight: 'auto' }}>Smoker</span>
-                <Flex>
-                  <Button
-                    onClick={() => handleSmokerChange(true)}
-                    variant={formData.smoker ? 'primary' : 'secondary'}
-                    size="s"
-                    label="Yes"
-                    style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
-                  />
-                  <Button
-                    onClick={() => handleSmokerChange(false)}
-                    variant={!formData.smoker ? 'primary' : 'secondary'}
-                    size="s"
-                    label="No"
-                    style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-                  />
-                </Flex>
-              </Flex>
-            </Flex>
+
+            <Switch
+              label="Enable Accessible Search"
+              description="Filter for buildings with accessible infrastructure"
+              isChecked={isAccessibleSearchEnabled}
+              onToggle={() => setIsAccessibleSearchEnabled(!isAccessibleSearchEnabled)}
+              iconButtonProps={{
+                tooltip: 'Learn more',
+                tooltipPosition: 'top'
+              }}
+            />
+            
+            <Dropdown
+              options={[
+                { label: 'Non-Smoker', value: 'Non-Smoker' },
+                { label: 'Smoker', value: 'Smoker' },
+              ]}
+              selectedOption={formData.smoker ? 'Smoker' : 'Non-Smoker'}
+              onOptionSelect={handleSmokerChange}
+              style={{
+                ...dropdownStyle as React.CSSProperties,
+                ...dropdownButtonStyle,
+                padding: '2px',
+              }}
+            />
 
             <Dropdown
               options={[
