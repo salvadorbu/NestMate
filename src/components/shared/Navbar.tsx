@@ -5,6 +5,7 @@ import { Flex, UserMenu, SmartLink } from '@/once-ui/components';
 import ProfilePicture from '../../assets/default.jpg';
 import {useLogoutFunction} from "@propelauth/nextjs/client";
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface NavbarProps {
   email: string;
@@ -35,10 +36,13 @@ const Navbar = ({ loggedIn, email, userId }: NavbarProps) => {
         background: 'transparent'
       }}
     >
+      <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
+        <Link href="/" style={{ textDecoration: 'none' }}>
+          <h1 style={{ fontSize: '24px', color: '#fff', cursor: 'pointer', margin: 0 }}>NestMates</h1>
+        </Link>
+      </div>
+
       <div style={{ flex: 1 }} />
-
-      <h1 style={{ fontSize: '24px', color: '#fff', textAlign: 'center', flex: 2 }}>NestMates</h1>
-
       <Flex gap="16" alignItems="center" justifyContent="flex-end" style={{ flex: 1 }}>
         {loggedIn ? (
           <UserMenu
