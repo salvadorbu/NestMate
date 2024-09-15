@@ -105,14 +105,12 @@ const CompleteProfile = () => {
             <Input
               id="rentMin"
               label="Minimum Rent"
-              value={formData.rentMin}
               onChange={handleChange}
               style={inputStyle}
             />
             <Input
               id="rentMax"
               label="Maximum Rent"
-              value={formData.rentMax}
               onChange={handleChange}
               style={inputStyle}
             />
@@ -137,7 +135,7 @@ const CompleteProfile = () => {
                 </Flex>
               </Flex>
             </Flex>
-            {/* Update Dropdown components */}
+            
             <Dropdown
               options={[
                 { label: 'Early Bird', value: 'Early Bird' },
