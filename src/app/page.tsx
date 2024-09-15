@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Heading, Text, Flex, Button, Background, LetterFx } from '@/once-ui/components';
 import { getUser } from '@propelauth/nextjs/server/app-router';
 import logoImg from '../assets/logo.png';
+import SearchBar from '@/components/shared/searchBar';
 
 export default async function Home() {
 	const user = await getUser();
@@ -35,8 +36,9 @@ export default async function Home() {
 							<Flex
 								position="relative"
 								flex={2} paddingTop="56" paddingX="xl">
-								<Image src={logoImg} alt="Logo" width={350} height={110} style={{zIndex: '1'}}/>
-
+								<Flex direction="column" gap="m">
+									<Image src={logoImg} alt="Logo" width={350} height={110} style={{zIndex: '1'}}/>
+								</Flex>
 							</Flex>
 							<Flex
 								position="relative"
@@ -54,20 +56,7 @@ export default async function Home() {
 										</LetterFx>
 									</span>
 								</Heading>
-								<Flex direction="row" gap="m">
-									<Button
-										href="/propertySearch"
-										suffixIcon="chevronRight"
-										variant="secondary">
-										Find your nest
-									</Button>
-									<Button
-										href="/about"
-										suffixIcon="chevronRight"
-										variant="secondary">
-										Read more
-									</Button>
-								</Flex>
+								<SearchBar />
 							</Flex>
 						</Flex>
 					</Flex>
