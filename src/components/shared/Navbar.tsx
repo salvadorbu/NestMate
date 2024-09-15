@@ -62,7 +62,8 @@ const Navbar = ({ loggedIn, email, userId, onboarded }: NavbarProps) => {
             }}
             dropdownOptions={[
               { label: 'Home', value: 'home' },
-              { label: 'Profile', value: 'profile',  },
+              { label: 'Profile', value: 'profile' },
+              { label: 'About Us', value: 'about' },
               { label: 'Log out', value: 'logout' },
             ]}
             dropdownProps={{
@@ -74,6 +75,8 @@ const Navbar = ({ loggedIn, email, userId, onboarded }: NavbarProps) => {
                   logoutFn();
                 } else if (option.value == 'home') {
                   router.push('/');
+                } else if (option.value == 'about') {
+                  router.push('/about')
                 }
               }
             }}
