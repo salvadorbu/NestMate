@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { getUser } from '@propelauth/nextjs/server/app-router';
 import Navbar from '@/components/shared/Navbar';
 import { Background
-    
+
  } from '@/once-ui/components';
 interface PageProps {
   params: {
@@ -24,7 +24,7 @@ export default async function UserProfile({ params }: PageProps) {
 
   return (
     <>
-        <Navbar loggedIn={loggedIn} email={email} userId={userId} />
+        <Navbar loggedIn={loggedIn} email={email} userId={userId} onboarded={true} />
         <Background dots={false}/>
     </>
   );

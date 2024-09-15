@@ -6,17 +6,25 @@ import ProfilePicture from '../../assets/default.jpg';
 import {useLogoutFunction} from "@propelauth/nextjs/client";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 interface NavbarProps {
   email: string;
   userId: string;
   loggedIn: boolean;
+  onboarded: boolean;
 }
 
-const Navbar = ({ loggedIn, email, userId }: NavbarProps) => {
+const Navbar = ({ loggedIn, email, userId, onboarded }: NavbarProps) => {
   const { redirectToSignupPage, redirectToLoginPage } = useRedirectFunctions();
   const logoutFn = useLogoutFunction();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!onboarded) {
+      router.push('/complete-profile');
+    }
+  }, [onboarded, router]);
 
   return (
     <Flex

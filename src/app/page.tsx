@@ -2,20 +2,31 @@ import React from 'react';
 import Navbar from '@/components/shared/Navbar';
 import Image from 'next/image';
 import { Heading, Text, Flex, Button, Background, LetterFx } from '@/once-ui/components';
-import { getUser } from '@propelauth/nextjs/server/app-router';
+import { getUser as getPropelUser } from '@propelauth/nextjs/server/app-router';
+import { getUser as fetchUserFromDB } from '@/actions/user.actions';
 import logoImg from '../assets/logo.png';
 import SearchBar from '@/components/shared/searchBar';
 
 export default async function Home() {
-	const user = await getUser();
+	const user = await getPropelUser();
 
 	const loggedIn = user != null;
+	let onboarded = true;
     const email = user?.email ?? '';
 	const userId = user?.userId ?? '';
+
+	let userFromDB = null;
+	if (userId) {
+		userFromDB = await fetchUserFromDB({ userId });
+	}
+
+	if (!userFromDB && loggedIn) {
+		onboarded = false;
+	}
 	
 	return (
 		<>
-			<Navbar loggedIn={loggedIn} email={email} userId={userId} />
+			<Navbar loggedIn={loggedIn} email={email} userId={userId} onboarded={onboarded} />
 			<Flex
 				fillWidth paddingTop="l" paddingX="l"
 				direction="column" alignItems="center" flex={1}>

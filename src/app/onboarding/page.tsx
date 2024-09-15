@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Flex, Input, Button, Dropdown, Background } from '@/once-ui/components';
+import { getUser as getPropelUser } from '@propelauth/nextjs/server/app-router';
 
 const CompleteProfile = () => {
   const [formData, setFormData] = useState({
@@ -32,21 +33,15 @@ const CompleteProfile = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send this data to your backend
-    console.log('Profile data:', formData);
-    router.push('/find-roommate');
+    
+    router.push('/');
   };
 
   const inputStyle = {
     border: '1px solid #ccc',
     borderRadius: '4px',
     padding: '8px',
-    width: '100%',
-  };
-
-  const labelStyle = {
-    marginBottom: '4px',
-    fontSize: '14px',
+    width: '400px',
   };
 
   const dropdownStyle = {
@@ -66,7 +61,7 @@ const CompleteProfile = () => {
         direction="column"
         alignItems="center"
         padding="xl"
-        maxWidth={68}
+        maxWidth={600}
         fillWidth
         fillHeight
       >

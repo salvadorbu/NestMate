@@ -56,3 +56,7 @@ export async function createUser(params: {
         throw error;
     }
 }
+
+export async function findMatches(params: { userId: string }) {
+    
+}
