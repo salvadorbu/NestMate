@@ -2,7 +2,7 @@
 
 import Property from "../models/propertyModel";
 import connectToDatabase from "../config/database";
-import { Types } from 'mongoose';
+import { Types, Document } from 'mongoose';
 
 interface PropertyDocument {
     _id: Types.ObjectId;
@@ -44,47 +44,25 @@ export async function getProperties(rentMin?: number, rentMax?: number) {
     }
 }
 
-export async function createUser(params: {
-    userId: string;
-    name: string;
-    age: number;
-    bio: string;
-    email: string;
-    onboarded: boolean;
-    rentMin?: number;
-    rentMax?: number;
-    smoker?: boolean;
-    sleepType?: string;
-    cleanliness?: string;
-}) {
+export async function getPropertyById(params: { propertyId: string }) {
     try {
-        await connectToDatabase();
-
-        const newProperty = new Property({
-            userId: params.userId,
-            name: params.name,
-            age: params.age,
-            bio: params.bio,
-            email: params.email,
-            onboarded: params.onboarded,
-            rentMin: params.rentMin,
-            rentMax: params.rentMax,
-            smoker: params.smoker,
-            sleepType: params.sleepType,
-            cleanliness: params.cleanliness,
-        });
-
-        const savedProperty = await newProperty.save();
-
-        const propertyObject = savedProperty.toObject();
-
-        return propertyObject;
+      await connectToDatabase();
+      const { propertyId } = params;
+      const objectId = new Types.ObjectId(propertyId);
+      const property = await Property.findOne({ _id: objectId });
+  
+      if (!property) {
+        throw new Error('Property not found');
+      }
+  
+      const plainProperty = property.toObject();
+  
+      plainProperty.id = plainProperty._id.toString();
+      delete plainProperty._id;
+      return plainProperty;
     } catch (error) {
-        console.log(error);
-        throw error;
+      console.log(error);
+      throw error;
     }
-}
+  }
 
-export async function findMatches(params: { userId: string }) {
-    
-}

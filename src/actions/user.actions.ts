@@ -63,5 +63,52 @@ export async function createUser(params: {
 }
 
 export async function findMatches(params: { userId: string }) {
-    
+    try {
+        await connectToDatabase();
+
+        const currentUser = await User.findOne({
+            userId: params.userId,
+        });
+
+        if (!currentUser) {
+            throw new Error("User not found");
+        }
+
+        const otherUsers = await User.find({
+            userId: { $ne: params.userId },
+        });
+
+        const matches: [string, string][] = [];
+
+        otherUsers.forEach(user => {
+            let matchCount = 0;
+
+            if (user.cleanliness === currentUser.cleanliness) {
+                matchCount++;
+            }
+
+            if (user.sleepType === currentUser.sleepType) {
+                matchCount++;
+            }
+
+            if (user.smoker === currentUser.smoker) {
+                matchCount++;
+            }
+
+            if (user.rentMax && currentUser.rentMax && user.rentMax <= currentUser.rentMax) {
+                matchCount++;
+            }
+
+            if (matchCount >= 2) {
+                matches.push([user.email, user.name]);
+            }
+        });
+
+        return matches;
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
 }
+
