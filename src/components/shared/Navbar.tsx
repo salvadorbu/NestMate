@@ -48,10 +48,6 @@ const Navbar = ({ loggedIn, email, userId }: NavbarProps) => {
           <UserMenu
             name={email}
             subline={'Member'}
-            tagProps={{
-              label: 'Pro',
-              variant: 'brand'
-            }}
             avatarProps={{
               empty: false,
               src: ProfilePicture.src,
