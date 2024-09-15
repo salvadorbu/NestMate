@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '@/components/shared/Navbar';
 import Image from 'next/image';
 import { getProperties } from '@/actions/property.actions';
+import { getUser } from '@/actions/user.actions';
 import testProperty from '../../assets/testProperty.png';
 
 import {
@@ -67,11 +68,18 @@ const PropertyCard = ({ property }: { property: Property }) => (
 
 export default async function PropertySearch() {
     const user = await getUserOrRedirect();
-    const properties = await getProperties();
+    const userId = user?.userId ?? '';
+
+    // Fetch user details to get rentMin and rentMax
+    const userDetails = await getUser({ userId });
+    const rentMin = userDetails?.rentMin;
+    const rentMax = userDetails?.rentMax;
+
+    // Fetch properties with rent range
+    const properties = await getProperties(rentMin, rentMax);
 
     const loggedIn = user != null;
     const email = user?.email ?? '';
-    const userId = user?.userId ?? '';
 
     return (
         <>
