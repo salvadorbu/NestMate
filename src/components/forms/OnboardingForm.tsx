@@ -83,6 +83,14 @@ const OnboardingForm = ({ email, userId }: OnboardingFormProps) => {
     paddingRight: '24px',
   };
 
+  const dropdownButtonStyle = {
+    '& > button': {
+      width: 'calc(100% - 4px)',
+      margin: '2px',
+      justifyContent: 'space-between',
+    }
+  };
+
   return (
     <Flex direction="column" alignItems="center" flex={1}>
       <Background dots={false} />
@@ -163,7 +171,11 @@ const OnboardingForm = ({ email, userId }: OnboardingFormProps) => {
               ]}
               selectedOption={formData.sleepType}
               onOptionSelect={handleDropdownChange('sleepType')}
-              style={dropdownStyle as React.CSSProperties}
+              style={{
+                ...dropdownStyle as React.CSSProperties,
+                ...dropdownButtonStyle,
+                padding: '2px',
+              }}
             />
             <Dropdown
               options={[
@@ -173,7 +185,11 @@ const OnboardingForm = ({ email, userId }: OnboardingFormProps) => {
               ]}
               selectedOption={formData.cleanliness}
               onOptionSelect={handleDropdownChange('cleanliness')}
-              style={dropdownStyle as React.CSSProperties}
+              style={{
+                ...dropdownStyle as React.CSSProperties,
+                ...dropdownButtonStyle,
+                padding: '2px',
+              }}
             />
             <Button
               type="submit"
